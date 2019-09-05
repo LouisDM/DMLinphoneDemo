@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="状态" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6oO-3q-rA9">
+                                <rect key="frame" x="170" y="130" width="35" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Jk-9l-bWs">
+                                <rect key="frame" x="78.5" y="171" width="31" height="30"/>
+                                <state key="normal" title="拨打"/>
+                                <connections>
+                                    <action selector="call:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TgG-wb-VfW"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ID5-po-kad">
+                                <rect key="frame" x="172" y="221" width="31" height="30"/>
+                                <state key="normal" title="接听"/>
+                                <connections>
+                                    <action selector="answer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZT9-Zd-Fg1"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="输入拨打号码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BTg-Fn-Pyb">
+                                <rect key="frame" x="56.5" y="80" width="262.5" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oWf-Ce-lDd">
+                                <rect key="frame" x="266" y="171" width="31" height="30"/>
+                                <state key="normal" title="挂断"/>
+                                <connections>
+                                    <action selector="hangup:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0Ih-qQ-Yge"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="账号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zZt-wJ-7z3" customClass="账号">
+                                <rect key="frame" x="56.5" y="42" width="50" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZK4-kY-aNy">
+                                <rect key="frame" x="116.5" y="42" width="50" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aLg-gl-6mo">
+                                <rect key="frame" x="176.5" y="42" width="31" height="30"/>
+                                <state key="normal" title="注册"/>
+                                <connections>
+                                    <action selector="registe:" destination="BYZ-38-t0r" eventType="touchUpInside" id="IvN-3i-hHZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ARI-qS-gzR">
+                                <rect key="frame" x="217.5" y="42" width="31" height="30"/>
+                                <state key="normal" title="退出"/>
+                                <connections>
+                                    <action selector="exit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="F0Q-dU-4vQ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="aLg-gl-6mo" firstAttribute="leading" secondItem="ZK4-kY-aNy" secondAttribute="trailing" constant="10" id="0uX-vZ-A0U"/>
+                            <constraint firstItem="zZt-wJ-7z3" firstAttribute="leading" secondItem="BTg-Fn-Pyb" secondAttribute="leading" id="31y-qC-nhb"/>
+                            <constraint firstItem="oWf-Ce-lDd" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" multiplier="1.5" id="4WL-Tj-aR7"/>
+                            <constraint firstItem="BTg-Fn-Pyb" firstAttribute="top" secondItem="aLg-gl-6mo" secondAttribute="bottom" constant="8" id="CZi-3d-9ht"/>
+                            <constraint firstItem="ID5-po-kad" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="GwR-xZ-P8F"/>
+                            <constraint firstItem="BTg-Fn-Pyb" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.7" id="J0H-qD-HDz"/>
+                            <constraint firstItem="3Jk-9l-bWs" firstAttribute="top" secondItem="6oO-3q-rA9" secondAttribute="bottom" constant="20" id="Tgl-OH-WOK"/>
+                            <constraint firstItem="BTg-Fn-Pyb" firstAttribute="top" secondItem="ZK4-kY-aNy" secondAttribute="bottom" constant="8" id="VF0-SP-MMH"/>
+                            <constraint firstItem="BTg-Fn-Pyb" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="X5y-2c-pA5"/>
+                            <constraint firstItem="oWf-Ce-lDd" firstAttribute="centerY" secondItem="3Jk-9l-bWs" secondAttribute="centerY" id="bHO-EO-qIL"/>
+                            <constraint firstItem="3Jk-9l-bWs" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" multiplier="0.5" id="bOS-F4-ZWF"/>
+                            <constraint firstItem="BTg-Fn-Pyb" firstAttribute="top" secondItem="zZt-wJ-7z3" secondAttribute="bottom" constant="8" id="cEp-TA-WSv"/>
+                            <constraint firstItem="ID5-po-kad" firstAttribute="top" secondItem="3Jk-9l-bWs" secondAttribute="bottom" constant="20" id="m5x-Mf-ltc"/>
+                            <constraint firstItem="BTg-Fn-Pyb" firstAttribute="top" secondItem="ARI-qS-gzR" secondAttribute="bottom" constant="8" id="mWa-wN-tAH"/>
+                            <constraint firstItem="6oO-3q-rA9" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="pmT-Sm-dhx"/>
+                            <constraint firstItem="6oO-3q-rA9" firstAttribute="top" secondItem="BTg-Fn-Pyb" secondAttribute="bottom" constant="20" id="soO-yB-Psc"/>
+                            <constraint firstItem="ARI-qS-gzR" firstAttribute="leading" secondItem="aLg-gl-6mo" secondAttribute="trailing" constant="10" id="ss3-wq-msX"/>
+                            <constraint firstItem="BTg-Fn-Pyb" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="60" id="wZ7-jY-WHX"/>
+                            <constraint firstItem="ZK4-kY-aNy" firstAttribute="leading" secondItem="zZt-wJ-7z3" secondAttribute="trailing" constant="10" id="x1u-vT-14T"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="accountTextField" destination="zZt-wJ-7z3" id="wVo-J2-cso"/>
+                        <outlet property="numberTextField" destination="BTg-Fn-Pyb" id="0Qc-ho-r6a"/>
+                        <outlet property="passworkTestField" destination="ZK4-kY-aNy" id="NgD-eb-9rI"/>
+                        <outlet property="stateLabel" destination="6oO-3q-rA9" id="DkS-aA-f9i"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-426.39999999999998" y="147.97601199400302"/>
+        </scene>
+    </scenes>
+</document>
