@@ -12,7 +12,7 @@
 #import "Utils.h"
 
 #define LC ([LinphoneManager getLc])
-#define IFREEDOMAIN @""//服务器地址
+#define IFREEDOMAIN @"47.75.55.108:5060"//服务器地址
 NSString *const ES_ON_REMOTE_OPEN_CEMERA = @"ES_ON_REMOTE_OPEN_CEMERA";
 NSString *const ES_ON_CALL_COMMING = @"ES_ON_CALL_COMMING";
 NSString *const ES_ON_CALL_END = @"ES_ON_CALL_END";
@@ -78,7 +78,7 @@ static DMLinphoneManager* _instance = nil;
     [[LinphoneManager instance] lpConfigSetBool:FALSE forKey:@"ice_preference"];
     [[LinphoneManager instance] lpConfigSetString:@"" forKey:@"stun_preference"];
     linphone_core_set_stun_server(LC, NULL);
-    linphone_core_set_firewall_policy(LC, LinphonePolicyNoFirewall);
+    linphone_core_set_nat_policy(LC, NULL);
     
     linphone_core_clear_all_auth_info(LC);
     linphone_core_clear_proxy_config(LC);
@@ -111,11 +111,11 @@ static DMLinphoneManager* _instance = nil;
         ) {
         linphone_core_terminate_conference(lc);
     } else if(currentcall != NULL) { // In a call
-        linphone_core_terminate_call(lc, currentcall);
+        linphone_call_terminate(currentcall);
     } else {
         const MSList* calls = linphone_core_get_calls(lc);
-        if (ms_list_size(calls) == 1) { // Only one call
-            linphone_core_terminate_call(lc,(LinphoneCall*)(calls->data));
+        if (bctbx_list_size(calls) == 1) { // Only one call
+            linphone_call_terminate(currentcall);
         }
     }
     NSLog(@"挂断");
@@ -142,22 +142,19 @@ static DMLinphoneManager* _instance = nil;
 - (void)registrationUpdate: (NSNotification*) notification {
     NSDictionary* userInfo = [notification userInfo];
     NSLog(@"registrationUpdate:%@",userInfo);
-    if ([self.delegate respondsToSelector:@selector(DMLinphoneManagerRegistrationed)])
-    {
-        if([userInfo[@"state"] integerValue] == LinphoneRegistrationOk){
-            NSLog(@"注册成功 开始拨打");
-            if ([self.delegate respondsToSelector:@selector(DMLinphoneManagerRegistrationed)])
-            {
-                [self.delegate DMLinphoneManagerRegistrationed];
-            }
-        }if([userInfo[@"state"] integerValue] == LinphoneRegistrationCleared){
-            NSLog(@"退出成功");
-            if ([self.delegate respondsToSelector:@selector(DMLinphoneManagerCleared)])
-            {
-                [self.delegate DMLinphoneManagerCleared];
-            }
+    
+    if([userInfo[@"state"] integerValue] == LinphoneRegistrationOk){
+        NSLog(@"注册成功");
+        if ([self.delegate respondsToSelector:@selector(DMLinphoneManagerRegistrationed)])
+        {
+            [self.delegate DMLinphoneManagerRegistrationed];
         }
-        
+    }if([userInfo[@"state"] integerValue] == LinphoneRegistrationCleared){
+        NSLog(@"退出成功");
+        if ([self.delegate respondsToSelector:@selector(DMLinphoneManagerCleared)])
+        {
+            [self.delegate DMLinphoneManagerCleared];
+        }
     }
 }
 
@@ -198,25 +195,25 @@ static DMLinphoneManager* _instance = nil;
             break;
         }
         case LinphoneCallUpdatedByRemote: {
-            const LinphoneCallParams *current = linphone_call_get_current_params(call);
-            const LinphoneCallParams *remote = linphone_call_get_remote_params(call);
-            
-            /* remote wants to add video */
-            if ((linphone_core_video_display_enabled([LinphoneManager getLc]) && !linphone_call_params_video_enabled(current) &&
-                 linphone_call_params_video_enabled(remote)) &&
-                (!linphone_core_get_video_policy([LinphoneManager getLc])->automatically_accept ||
-                 (([UIApplication sharedApplication].applicationState != UIApplicationStateActive) &&
-                  floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_9_x_Max))) {
-                     linphone_core_defer_call_update([LinphoneManager getLc], call);
-                     
-                     
-                     [NSNotificationCenter.defaultCenter postNotificationName:ES_ON_REMOTE_OPEN_CEMERA object: self userInfo:dict];
-                     
-                     //                     [self allowToOpenCameraByRemote:call];
-                     
-                 } else if (linphone_call_params_video_enabled(current) && !linphone_call_params_video_enabled(remote)) {
-                     
-                 }
+//            const LinphoneCallParams *current = linphone_call_get_current_params(call);
+//            const LinphoneCallParams *remote = linphone_call_get_remote_params(call);
+//
+//            /* remote wants to add video */
+//            if ((linphone_core_video_display_enabled([LinphoneManager getLc]) && !linphone_call_params_video_enabled(current) &&
+//                 linphone_call_params_video_enabled(remote)) &&
+//                (!linphone_core_get_video_policy([LinphoneManager getLc])->automatically_accept ||
+//                 (([UIApplication sharedApplication].applicationState != UIApplicationStateActive) &&
+//                  floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_9_x_Max))) {
+//                     linphone_call_defer_update(call);
+//
+//
+//                     [NSNotificationCenter.defaultCenter postNotificationName:ES_ON_REMOTE_OPEN_CEMERA object: self userInfo:dict];
+//
+//                     //                     [self allowToOpenCameraByRemote:call];
+//
+//                 } else if (linphone_call_params_video_enabled(current) && !linphone_call_params_video_enabled(remote)) {
+//
+//                 }
             break;
         }
         case LinphoneCallUpdating:
@@ -304,7 +301,20 @@ static DMLinphoneManager* _instance = nil;
             NSLog(@"2232LinphoneCallIncomingEarlyMedia");
         }
             break;
-        
+        case LinphoneCallStateIdle:
+        case LinphoneCallStateOutgoingProgress:
+        case LinphoneCallStateOutgoingRinging:
+        case LinphoneCallStateStreamsRunning:
+        case LinphoneCallStatePausing:
+        case LinphoneCallStatePaused:
+        case LinphoneCallStateResuming:
+        case LinphoneCallStateReferred:
+        case LinphoneCallStatePausedByRemote:
+        case LinphoneCallStateUpdatedByRemote:
+        case LinphoneCallStateUpdating:
+        case LinphoneCallStateEarlyUpdatedByRemote:
+        case LinphoneCallStateEarlyUpdating:
+            break;
     }
     
 }
@@ -345,7 +355,9 @@ static DMLinphoneManager* _instance = nil;
 #pragma mark - 注册
 
 - (void)registeByUserName:(NSString *)userName pwd:(NSString *)pwd{
-    [self registeByUserName:userName pwd:pwd domain:IFREEDOMAIN tramsport:@"udp"];
+    if(userName.length && pwd.length){
+        [self registeByUserName:userName pwd:pwd domain:IFREEDOMAIN tramsport:@"udp"];
+    }
 }
 
 - (void)registeByUserName:(NSString *)userName pwd:(NSString *)pwd domain:(NSString *)domain tramsport:(NSString *)transport{

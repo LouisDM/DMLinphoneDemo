@@ -75,9 +75,8 @@ extern NSString *const ES_ON_CALL_STREAM_UPDATE;
 
 /**
  登录sip服务器
- @param username 用户名
+ @param userName 用户名
  @param pwd 密码
- @param displayName 显示名
  */
 
 - (void)registeByUserName:(NSString *)userName pwd:(NSString *)pwd;
